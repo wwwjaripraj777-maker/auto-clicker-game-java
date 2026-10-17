@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Auto Clicker Game</string>
+    <string name="title_settings">Auto Click Settings</string>
+    <string name="label_delay">Tap delay (ms)</string>
+    <string name="label_tap_x">Tap X</string>
+    <string name="label_tap_y">Tap Y</string>
+    <string name="button_save">Save</string>
+    <string name="button_enable_accessibility">Enable Accessibility</string>
+    <string name="button_overlay">Show Floating Button</string>
+    <string name="state_enabled">Accessibility enabled</string>
+    <string name="state_disabled">Accessibility not enabled</string>
+    <string name="toggle_auto_click">Auto click enabled</string>
+    <string name="instructions">1. Enable Accessibility Service\n2. Grant overlay permission\n3. Save tap coordinates\n4. Press the floating button to start/stop</string>
+    <string name="overlay_start">Start</string>
+    <string name="overlay_stop">Stop</string>
+</resources>
