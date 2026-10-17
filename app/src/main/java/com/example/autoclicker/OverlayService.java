@@ -23,6 +23,10 @@ public class OverlayService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (overlayView != null) {
+            Button overlayButton = overlayView.findViewById(R.id.overlayButton);
+            updateButtonText(overlayButton);
+        }
         return START_STICKY;
     }
 
@@ -49,6 +53,12 @@ public class OverlayService extends Service {
         overlayButton.setOnClickListener(v -> {
             boolean enabled = !AutoClickController.isEnabled(this);
             AutoClickController.setEnabled(this, enabled);
+            if (enabled) {
+                startService(new Intent(this, AutoClickService.class)
+                        .setAction("com.example.autoclicker.START_AUTO_CLICK"));
+            } else {
+                stopService(new Intent(this, AutoClickService.class));
+            }
             updateButtonText(overlayButton);
         });
 

@@ -4,6 +4,8 @@
     <string name="label_delay">Tap delay (ms)</string>
     <string name="label_tap_x">Tap X</string>
     <string name="label_tap_y">Tap Y</string>
+    <string name="label_tap_count">Tap count (0 = infinite)</string>
+    <string name="label_randomize">Randomize tap area</string>
     <string name="button_save">Save</string>
     <string name="button_enable_accessibility">Enable Accessibility</string>
     <string name="button_overlay">Show Floating Button</string>

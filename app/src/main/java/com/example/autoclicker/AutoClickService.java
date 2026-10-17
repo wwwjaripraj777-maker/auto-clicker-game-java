@@ -10,10 +10,15 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
+import java.util.Random;
+
 public class AutoClickService extends AccessibilityService {
     private static final String TAG = "AutoClickService";
+    private static final String ACTION_START = "com.example.autoclicker.START_AUTO_CLICK";
     private final Handler handler = new Handler(Looper.getMainLooper());
     private Runnable tapRunnable;
+    private int tapCountRemaining = 0;
+    private final Random random = new Random();
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
@@ -23,6 +28,12 @@ public class AutoClickService extends AccessibilityService {
     @Override
     public void onInterrupt() {
         stopLoop();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        startLoop();
+        return START_STICKY;
     }
 
     @Override
@@ -40,8 +51,14 @@ public class AutoClickService extends AccessibilityService {
 
     private void startLoop() {
         stopLoop();
+
         if (!AutoClickController.isEnabled(this)) {
             return;
+        }
+
+        tapCountRemaining = AutoClickController.getTapCount(this);
+        if (tapCountRemaining < 0) {
+            tapCountRemaining = 0;
         }
 
         tapRunnable = new Runnable() {
@@ -51,8 +68,25 @@ public class AutoClickService extends AccessibilityService {
                     return;
                 }
 
-                dispatchTap(AutoClickController.getTapX(AutoClickService.this),
-                        AutoClickController.getTapY(AutoClickService.this));
+                if (tapCountRemaining > 0) {
+                    tapCountRemaining--;
+                    if (tapCountRemaining <= 0) {
+                        AutoClickController.setEnabled(AutoClickService.this, false);
+                        return;
+                    }
+                }
+
+                int baseX = AutoClickController.getTapX(AutoClickService.this);
+                int baseY = AutoClickController.getTapY(AutoClickService.this);
+
+                if (AutoClickController.shouldRandomize(AutoClickService.this)) {
+                    int jitterX = random.nextInt(35) - 17;
+                    int jitterY = random.nextInt(35) - 17;
+                    baseX = Math.max(0, baseX + jitterX);
+                    baseY = Math.max(0, baseY + jitterY);
+                }
+
+                dispatchTap(baseX, baseY);
                 handler.postDelayed(this, Math.max(50, AutoClickController.getDelay(AutoClickService.this)));
             }
         };

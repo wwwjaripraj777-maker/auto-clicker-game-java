@@ -73,7 +73,32 @@
         android:text="980"
         android:textColor="#FFFFFF"
         android:backgroundTint="#8E7CC3"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_tap_count"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/tapCountInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#8E7CC3"
+        android:layout_marginBottom="16dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/randomizeSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_randomize"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/autoSwitch"

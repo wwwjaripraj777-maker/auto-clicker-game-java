@@ -4,9 +4,11 @@
 ## Features
 - Auto tap / auto click engine
 - Adjustable delay between taps
-- Tap coordinate setting (x, y)
-- Start/stop floating button overlay
-- AccessibilityService integration
+- Target coordinate input (X/Y)
+- Tap count loop mode and continuous mode
+- Optional random tap offset for more human-like tapping
+- Floating overlay button for start/stop
+- AccessibilityService support for game automation
 - Java + XML Android project
 
 ## Important notes
@@ -23,7 +25,7 @@
 ## Setup steps in app
 1. Tap "Enable Accessibility" and enable Auto Clicker Game in Accessibility settings.
 2. Tap "Show Floating Button" and allow overlay permission.
-3. Enter delay and target coordinates.
+3. Enter delay, target coordinates, and tap count.
 4. Toggle the switch or use the floating button to start/stop auto-clicking.
 
 ## License
