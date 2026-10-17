@@ -48,8 +48,16 @@ public class MainActivity extends AppCompatActivity {
         autoSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             AutoClickController.setEnabled(MainActivity.this, isChecked);
             if (isChecked) {
-                startService(new Intent(MainActivity.this, AutoClickService.class)
-                        .setAction("com.example.autoclicker.START_AUTO_CLICK"));
+                // Ensure accessibility service is enabled before attempting to start tapping
+                if (!AccessibilityUtil.isAccessibilityServiceEnabled(MainActivity.this)) {
+                    // Revert toggle and prompt user to enable accessibility
+                    AutoClickController.setEnabled(MainActivity.this, false);
+                    autoSwitch.setChecked(false);
+                    AccessibilityUtil.openAccessibilitySettings(MainActivity.this);
+                } else {
+                    startService(new Intent(MainActivity.this, AutoClickService.class)
+                            .setAction("com.example.autoclicker.START_AUTO_CLICK"));
+                }
             } else {
                 stopService(new Intent(MainActivity.this, AutoClickService.class));
             }
